@@ -22,7 +22,7 @@ public class CodingTestApplication {
 
 	@PostConstruct
 	public void initialize(){
-		System.out.println("Initializing...");
+		System.out.println("Initializing Data...");
 
 		for(int ctr=1; ctr<=10; ctr++){
 			employees.put("Hourly" + ctr, new Hourly());

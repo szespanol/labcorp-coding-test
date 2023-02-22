@@ -9,4 +9,8 @@ public class VacationDaysException  extends RuntimeException implements CustomEx
     public String getErrorCode() {
         return errorCode;
     }
+
+    public String getErrorMessage() {
+        return getMessage();
+    }
 }

@@ -11,4 +11,8 @@ public class EmployeeNotFoundException extends RuntimeException implements Custo
     public String getErrorCode() {
         return errorCode;
     }
+
+    public String getErrorMessage() {
+        return getMessage();
+    }
 }

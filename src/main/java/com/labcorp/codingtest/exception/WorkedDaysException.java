@@ -11,4 +11,8 @@ public class WorkedDaysException extends RuntimeException implements CustomExcep
     public String getErrorCode() {
         return errorCode;
     }
+
+    public String getErrorMessage() {
+        return getMessage();
+    }
 }

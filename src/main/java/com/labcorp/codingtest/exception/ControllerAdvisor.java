@@ -15,28 +15,29 @@ import java.util.Map;
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     @ExceptionHandler(WorkedDaysException.class)
     public ResponseEntity<Object> handleWorkedDaysException(WorkedDaysException ex, WebRequest request) {
-        Map<String, Object> errMsg = new LinkedHashMap<>();
-        errMsg.put("code", ex.getErrorCode());
-        errMsg.put("timestamp", LocalDateTime.now());
-        errMsg.put("message", ex.getMessage());
+        Map<String, Object> errMsg = getStringObjectMap(ex);
         return new ResponseEntity<>(errMsg, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+
+
     @ExceptionHandler(VacationDaysException.class)
     public ResponseEntity<Object> handleVacationDaysException(VacationDaysException ex, WebRequest request) {
-        Map<String, Object> errMsg = new LinkedHashMap<>();
-        errMsg.put("code", ex.getErrorCode());
-        errMsg.put("timestamp", LocalDateTime.now());
-        errMsg.put("message", ex.getMessage());
+        Map<String, Object> errMsg = getStringObjectMap(ex);
         return new ResponseEntity<>(errMsg, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(EmployeeNotFoundException.class)
     public ResponseEntity<Object> employeeNotFoundException(EmployeeNotFoundException ex, WebRequest request) {
+        Map<String, Object> errMsg = getStringObjectMap(ex);
+        return new ResponseEntity<>(errMsg, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private static Map<String, Object> getStringObjectMap(CustomException ex) {
         Map<String, Object> errMsg = new LinkedHashMap<>();
         errMsg.put("code", ex.getErrorCode());
         errMsg.put("timestamp", LocalDateTime.now());
-        errMsg.put("message", ex.getMessage());
-        return new ResponseEntity<>(errMsg, HttpStatus.INTERNAL_SERVER_ERROR);
+        errMsg.put("message", ex.getErrorMessage());
+        return errMsg;
     }
 }
