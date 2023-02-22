@@ -1,6 +1,7 @@
 package com.labcorp.codingtest.controller;
 
 import com.labcorp.codingtest.domain.Employee;
+import com.labcorp.codingtest.domain.RequestParameter;
 import com.labcorp.codingtest.service.VacationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,20 +16,16 @@ public class VacationController {
     @Autowired
     private VacationService service;
 
-    @GetMapping("/worked-days/employee/{name}")
-    public ResponseEntity<String> setWorkedDays(@PathVariable(value = "name") String name,
-                                                @RequestParam(value = "workedDays") Integer workedDays) {
-         service.setWorkedDays(name, workedDays);
+    @PostMapping("/worked-days")
+    public ResponseEntity<String> setWorkedDays(@RequestBody RequestParameter parameter) {
+        service.setWorkedDays(parameter.getName(), Integer.valueOf(parameter.getNumberOfDays()));
         return ResponseEntity.ok("Success!");
-
     }
 
-    @GetMapping("/take-vacation/employee/{name}")
-    public ResponseEntity<String> takeVacation(@PathVariable(value = "name") String name,
-                                @RequestParam(value = "vacationDaysUsed") String vacationDaysUsed) {
-        service.takeVacation(name, Float.valueOf(vacationDaysUsed));
+    @PostMapping("/take-vacation")
+    public ResponseEntity<String> takeVacation(@RequestBody RequestParameter parameter) {
+        service.takeVacation(parameter.getName(), Float.valueOf(parameter.getNumberOfDays()));
         return ResponseEntity.ok("Success!");
-
     }
 
     @GetMapping(value = "/report", produces = { "application/json" })
